@@ -250,26 +250,29 @@
 
 %%中文结构名字
 \ifdefstring{\ELEGANT@lang}{cn}{
-\renewcommand{\contentsname}{目\hspace{2em}录}
-\renewcommand{\figurename}{图}
-\renewcommand{\tablename}{表}
-\renewcommand{\partname}{\color{structurecolor}}
-\renewcommand{\thepart}{第\zhnumber{\arabic{part}}部分}
-\renewcommand{\listfigurename}{插图目录}
-\renewcommand{\listtablename}{表格目录}
-\renewcommand{\bibname}{参考文献}
-\renewcommand{\appendixname}{附录}
-\renewcommand{\indexname}{索\hspace{2em}引}
-\newcommand\figref[1]{\textbf{图}~\ref{#1}}
-\newcommand\tabref[1]{\textbf{表}~\ref{#1}}
-\renewcommand{\chaptername}{第 \thechapter\,章}
-\ifdefstring{\ELEGANT@cite}{authoryear}{
-	\RequirePackage[authoryear]{gbt7714}
-}{\relax}
-\ifdefstring{\ELEGANT@cite}{numbers}{
-	\RequirePackage[numbers]{gbt7714}
-}{\relax}
-}{\relax}
+  \renewcommand{\contentsname}{目\hspace{2em}录}
+  \renewcommand{\figurename}{图}
+  \renewcommand{\tablename}{表}
+  \renewcommand{\partname}{\color{structurecolor}}
+  \renewcommand{\thepart}{第\zhnumber{\arabic{part}}部分}
+  \renewcommand{\listfigurename}{插图目录}
+  \renewcommand{\listtablename}{表格目录}
+  \renewcommand{\bibname}{参考文献}
+  \renewcommand{\appendixname}{附录}
+  \renewcommand{\indexname}{索\hspace{2em}引}
+  \newcommand\figref[1]{\textbf{图}~\ref{#1}}
+  \newcommand\tabref[1]{\textbf{表}~\ref{#1}}
+  \renewcommand{\chaptername}{第 \thechapter\,章}
+  \ifdefstring{\ELEGANT@cite}{authoryear}{
+  	\RequirePackage[authoryear]{gbt7714}
+  }{\relax}
+  \ifdefstring{\ELEGANT@cite}{numbers}{
+  	\RequirePackage[numbers]{gbt7714}
+  }{\relax}
+  \newcommand\problemsetname{习题}
+}{
+  \newcommand\problemsetname{Exercise}
+}
 \ifdefstring{\ELEGANT@lang}{en}{
 \newcommand\figref[1]{\textbf{Figure}~\ref{#1}}
 \newcommand\tabref[1]{\textbf{Table}~\ref{#1}}
@@ -602,13 +605,15 @@
 \end{tcolorbox}}
 
 \RequirePackage{adforn}
-\newenvironment{problemset}[1][\ifdefstring{\ELEGANT@lang}{en}{\textbf{\chaptername\, Exercise}}{\textbf{\chaptername\, 习题}}]{
-\begin{center}
-% \ifdefstring{\ELEGANT@lang}{en}{\addcontentsline{toc}{section}{\chaptername\, Exercise} }{\addcontentsline{toc}{section}{\chaptername\, 习题}}
-\textcolor{structurecolor}{\Large\bfseries\adftripleflourishleft~#1~\adftripleflourishright}
-\end{center}
-\begin{enumerate}[label=\textcolor{structurecolor}{\arabic*.}]}{%
-\end{enumerate}}
+\newenvironment{problemset}[1][\chaptername\, \problemsetname]{%
+  \markright{\thechapter\space\problemsetname}%
+  \begin{center}
+    \textcolor{structurecolor}{\Large\bfseries\adftripleflourishleft~#1~\adftripleflourishright}
+  \end{center}
+  \begin{enumerate}[label=\textcolor{structurecolor}{\arabic*.}]
+}{
+  \end{enumerate}
+}
 
 \def\relsec{\endgroup start}
 \def\endrelsec{end\begingroup\def \@currenvir {relsec}}
